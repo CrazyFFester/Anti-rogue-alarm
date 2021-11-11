@@ -33,9 +33,10 @@ public class WayPointMovement : MonoBehaviour
         Transform target = _points[_currentPoint];
 
         transform.position = Vector2.MoveTowards(transform.position, target.position, _speed * Time.deltaTime);
-
+        
         if ((Vector2)transform.position == (Vector2)target.position)
         {
+            Debug.Log(_currentPoint);
             _currentPoint++;
             transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
 

@@ -2,18 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-<<<<<<< Updated upstream
   
-public class Signaling : MonoBehaviour
-{
-    private AudioSource alarmSound;
-    private bool rogueInside;
-
-    private void Awake()
-    {
-        alarmSound = GetComponent<AudioSource>();   
-=======
-
 public class Signaling : MonoBehaviour
 {
     private AudioSource _alarmSound;
@@ -22,7 +11,6 @@ public class Signaling : MonoBehaviour
     private void Awake()
     {
         _alarmSound = GetComponent<AudioSource>();
->>>>>>> Stashed changes
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -71,10 +59,6 @@ public class Signaling : MonoBehaviour
                 _alarmSound.volume = i;
                 yield return waitForSeconds;
             }
-<<<<<<< Updated upstream
-            
-=======
->>>>>>> Stashed changes
         }
     }
 }
