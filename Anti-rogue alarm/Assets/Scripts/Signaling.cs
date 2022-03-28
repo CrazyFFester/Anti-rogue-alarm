@@ -7,6 +7,8 @@ public class Signaling : MonoBehaviour
 {
     private AudioSource _alarmSound;
     private bool _rogueInside;
+    private Coroutine _onTriggerEnter;
+    private Coroutine _onTriggerExit;
 
     private void Awake()
     {
@@ -19,8 +21,7 @@ public class Signaling : MonoBehaviour
         {
             if (!_rogueInside)
             {
-                StopCoroutine(ChangeSound(0f, 0.05f));
-                StartCoroutine(ChangeSound(1f, 0.025f));
+                _onTriggerEnter = StartCoroutine(ChangeSound(1f, 0.025f));
             }
         }
     }
@@ -32,8 +33,8 @@ public class Signaling : MonoBehaviour
             _rogueInside = !_rogueInside;
             if (!_rogueInside)
             {
-                StopCoroutine(ChangeSound(1f, 0.025f));
-                StartCoroutine(ChangeSound(0f, 0.05f));
+                StopCoroutine(_onTriggerEnter);
+                _onTriggerExit = StartCoroutine(ChangeSound(0f, 0.05f));
             }
         }
     }
@@ -44,19 +45,17 @@ public class Signaling : MonoBehaviour
 
         if (_alarmSound.volume < targetVolume)
         {
-            for (float i = _alarmSound.volume; i < targetVolume;)
+            while (_alarmSound.volume < targetVolume)
             {
-                i += scaleDivision;
-                _alarmSound.volume = i;
+                _alarmSound.volume = Mathf.MoveTowards(_alarmSound.volume, targetVolume, scaleDivision);
                 yield return waitForSeconds;
             }
         }
         else if (_alarmSound.volume > targetVolume)
         {
-            for (float i = _alarmSound.volume; i > targetVolume;)
+            while (_alarmSound.volume > targetVolume)
             {
-                i -= scaleDivision;
-                _alarmSound.volume = i;
+                _alarmSound.volume = Mathf.MoveTowards(_alarmSound.volume, targetVolume, scaleDivision);
                 yield return waitForSeconds;
             }
         }
