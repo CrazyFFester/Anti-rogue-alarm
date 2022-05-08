@@ -12,7 +12,7 @@ public class Signaling : MonoBehaviour
         _alarmSound = GetComponent<AudioSource>();
     }
 
-    public IEnumerator ChangeSound(float targetVolume, float scaleDivision)
+    public IEnumerator ChangeSound(int targetVolume, float scaleDivision)
     {
         WaitForSeconds waitForSeconds = new WaitForSeconds(0.1f);
 
